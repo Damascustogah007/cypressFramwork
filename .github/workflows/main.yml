@@ -32,15 +32,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Start the localhost server
-      - name: Start Server
-        run: |
-          npm start &
-          while ! nc -z localhost 3000; do
-            echo "Waiting for server to start...";
-            sleep 1;
-          done
-
       # Run Cypress tests
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
