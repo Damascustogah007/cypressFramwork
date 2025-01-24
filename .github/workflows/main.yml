@@ -14,8 +14,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: ['18.x'] # Test on Node.js versions 18.x and 20.x
-        os: [ubuntu-20.04] # Test on different OS platforms
+        node_version: ['18.x'] # Test on Node.js version 18.x
+        os: [ubuntu-20.04] # Test on Ubuntu 20.04
 
     steps:
       # Checkout the repository
@@ -32,12 +32,23 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      # Start the localhost server
+      - name: Start Server
+        run: |
+          npm start &
+          while ! nc -z localhost 3000; do
+            echo "Waiting for server to start...";
+            sleep 1;
+          done
+
+      # Run Cypress tests
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
           browser: chrome
-          spec: cypress/e2e/PageWeb/*.cy.js # Update if tests reside in a subfolder like `cypress/`
+          spec: cypress/e2e/PageWeb/*.cy.js # Update if tests reside in a subfolder
 
+      # Collect artifacts (screenshots and videos)
       - name: Collect Artifacts
         run: |
           mkdir -p artifacts
@@ -52,6 +63,7 @@ jobs:
             echo "No videos directory found."
           fi
 
+      # Upload artifacts for debugging purposes
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
