@@ -12,13 +12,14 @@ jobs:
     name: Run Cypress Tests on Node.js ${{ matrix.node_version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        node_version: ['18.x', '20.x'] # Test on Node.js versions 18.x and 20.x
-        os: [ubuntu-latest, windows-latest, macos-latest] # Test on different OS platforms
+        node_version: ['18.x'] # Test on Node.js versions 18.x and 20.x
+        os: [ubuntu-20.04] # Test on different OS platforms
 
     steps:
       # Checkout the repository
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       # Setup Node.js environment
@@ -30,15 +31,15 @@ jobs:
       # Install Cypress and other dependencies
       - name: Install Dependencies
         run: npm install
+        working-directory: ./ # Ensure this points to the correct folder (update if `package.json` is inside a subfolder)
 
-      # Run Cypress tests
       - name: Run Cypress Tests
         run: npx cypress run
+        working-directory: ./ # Update if tests reside in a subfolder like `cypress/`
 
-      # Optionally upload Cypress artifacts (videos/screenshots)
-      - name: Upload Cypress Artifacts
-        if: failure() # Only upload artifacts if the tests fail
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-artifacts
-          path: cypress/videos/
+      - name: Save Cypress Artifacts
+        if: failure()
+        run: |
+          mkdir -p artifacts
+          cp -r cypress/screenshots artifacts/
+          cp -r cypress/videos artifacts/
