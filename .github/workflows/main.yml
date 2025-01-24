@@ -31,12 +31,9 @@ jobs:
       # Install Cypress and other dependencies
       - name: Install Dependencies
         run: npm install
-        working-directory: ./Examples # Ensure this points to the correct folder (update if `package.json` is inside a subfolder)
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
-        env:
-          CYPRESS_PROJECT_ROOT: ./Examples
         with:
           browser: chrome
           spec: cypress/e2e/PageWeb/*.cy.js # Update if tests reside in a subfolder like `cypress/`
