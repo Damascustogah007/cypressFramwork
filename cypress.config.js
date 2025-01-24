@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   env: {
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://www.google.com',
     viewportWidth : 1280,
     viewportHeight : 720, 
   },
@@ -12,7 +12,7 @@ module.exports = defineConfig({
       "openMode": 2 
     },
     defaultCommandTimeout : 4 * 1000,
-    pageLoadTimeout : 6 * 1000,
+    pageLoadTimeout : 10 * 1000,
     downloadsFolder : 'cypress/downloads',
     chromeWebSecurity : false,
     waitForAnimations : true,
