@@ -35,11 +35,24 @@ jobs:
 
       - name: Run Cypress Tests
         run: npx cypress run
-        working-directory: ./ # Update if tests reside in a subfolder like `cypress/`
+        working-directory: ./Examples # Update if tests reside in a subfolder like `cypress/`
 
-      - name: Save Cypress Artifacts
-        if: failure()
+      - name: Collect Artifacts
         run: |
           mkdir -p artifacts
-          cp -r cypress/screenshots artifacts/
-          cp -r cypress/videos artifacts/
+          if [ -d "cypress/screenshots" ]; then
+            cp -r cypress/screenshots artifacts/
+          else
+            echo "No screenshots directory found."
+          fi
+          if [ -d "cypress/videos" ]; then
+            cp -r cypress/videos artifacts/
+          else
+            echo "No videos directory found."
+          fi
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: artifacts
