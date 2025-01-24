@@ -16,6 +16,8 @@ module.exports = defineConfig({
     downloadsFolder : 'cypress/downloads',
     chromeWebSecurity : false,
     waitForAnimations : true,
+    screenshotsFolder: "cypress/screenshots",
+    video: true,
     specPattern : 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     setupNodeEvents(on, config) {
       // implement node event listeners here
