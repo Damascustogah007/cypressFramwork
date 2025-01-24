@@ -1,0 +1,44 @@
+name: Run Cypress Tests
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 5 * * 1" # Scheduled to run every Monday at 5:00 AM UTC
+
+jobs:
+  test:
+    name: Run Cypress Tests on Node.js ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: ['18.x', '20.x'] # Test on Node.js versions 18.x and 20.x
+        os: [ubuntu-latest, windows-latest, macos-latest] # Test on different OS platforms
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Setup Node.js environment
+      - name: Setup Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      # Install Cypress and other dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Run Cypress tests
+      - name: Run Cypress Tests
+        run: npx cypress run
+
+      # Optionally upload Cypress artifacts (videos/screenshots)
+      - name: Upload Cypress Artifacts
+        if: failure() # Only upload artifacts if the tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: cypress/videos/
