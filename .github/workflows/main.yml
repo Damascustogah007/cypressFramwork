@@ -31,7 +31,7 @@ jobs:
       # Install Cypress and other dependencies
       - name: Install Dependencies
         run: npm install
-        working-directory: ./ # Ensure this points to the correct folder (update if `package.json` is inside a subfolder)
+        working-directory: ./Examples # Ensure this points to the correct folder (update if `package.json` is inside a subfolder)
 
       - name: Run Cypress Tests
         run: npx cypress run
