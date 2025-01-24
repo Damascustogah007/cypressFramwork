@@ -35,7 +35,7 @@ jobs:
 
       - name: Run Cypress Tests
         run: npx cypress run
-        working-directory: ./cypress/e2e/PageWeb # Update if tests reside in a subfolder like `cypress/`
+        working-directory: Examples/cypress/e2e/PageWeb # Update if tests reside in a subfolder like `cypress/`
 
       - name: Collect Artifacts
         run: |
