@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "lint": "eslint cypress/pageObjects/**/*.js",
+    "cypress": "npx cypress open --e2e --browser chrome"
+  },
+  "devDependencies": {
+    "cypress": "14.0.0",
+    "eslint": "9.18.0",
+    "eslint-plugin-cypress": "4.1.0"
+  }
+}
