@@ -34,8 +34,10 @@ jobs:
         working-directory: ./Examples # Ensure this points to the correct folder (update if `package.json` is inside a subfolder)
 
       - name: Run Cypress Tests
-        run: npx cypress run
-        working-directory: ./Examples # Update if tests reside in a subfolder like `cypress/`
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+          spec: cypress/e2e/PageWeb/*.cy.js # Update if tests reside in a subfolder like `cypress/`
 
       - name: Collect Artifacts
         run: |
