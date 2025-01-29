@@ -40,10 +40,9 @@ export default class Homepage extends Page{
     }
     
     navigateToTestingFoundationPage(){
-        return this.getLocator(this.getStartedbtn)
+        return this.getLocator(this.getStartedbtn).click() 
         // .invoke('text')
-        // .should('equal','Get started')
-        .click()   
+        // .should('equal','Get started')  
     }
 
     getTestingHeader(){
@@ -57,7 +56,7 @@ export default class Homepage extends Page{
         this.verifyLengthOfLearningMaterialsOnPage()
         this.navigateToTestingFoundation()
         this.verifyLengthOfLearningMaterialsOnPage()
-        this.intercept(this.url, this.hostname,this.alias)
+        this.intercept(this.url, this.hostname, this.alias)
         this.navigateToTestingFoundationPage()
         this.waitForPageLoad(data.testingFoundationAlias)
     }

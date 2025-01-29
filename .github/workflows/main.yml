@@ -14,8 +14,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Run 3 copies of the current job in parallel
-        containers: [1, 2, 3]
         node_version: ['18.x'] # Test on Node.js version 18.x
         os: [ubuntu-20.04] # Test on Ubuntu 20.04
 
@@ -28,41 +26,27 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js environment
-      - name: Setup Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node_version }}
-
-      # Step 3: Install dependencies
+      # Step 2: Install dependencies
       - name: Install Dependencies
         run: npm install
 
-      # Step 4: Run Cypress tests
+      # Step 3: Run Cypress tests
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
           browser: chrome
           spec: cypress/e2e/PageWeb/*.cy.js # Update this path to match your test files
+          record: true
+          parallel: true # Runs test in parallel using settings above
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Step 5: Collect artifacts (screenshots and videos)
-      - name: Collect Artifacts
-        run: |
-          mkdir -p artifacts
-          if [ -d "cypress/screenshots" ]; then
-            cp -r cypress/screenshots artifacts/
-          else
-            echo "No screenshots directory found."
-          fi
-          if [ -d "cypress/videos" ]; then
-            cp -r cypress/videos artifacts/
-          else
-            echo "No videos directory found."
-          fi
-
-      # Step 6: Upload artifacts for debugging purposes
+      # Step 4: Upload artifacts for debugging purposes
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: cypress-artifacts
-          path: artifacts
+          path: |
+            cypress/screenshots/
+            cypress/videos/

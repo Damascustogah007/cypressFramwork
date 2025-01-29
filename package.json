@@ -1,7 +1,9 @@
 {
   "scripts": {
     "lint": "eslint cypress/pageObjects/**/*.js",
-    "cypress": "npx cypress open --e2e --browser chrome"
+    "cypress:open": "npx cypress open --e2e --browser chrome",
+    "cypress:run": "npx cypress open --e2e --browser chrome",
+    "cypress:gitaction": "npx cypress run --record --key cf14d1ec-745c-4f5a-a52e-3fd29449ba04"
   },
   "devDependencies": {
     "cypress": "14.0.0",

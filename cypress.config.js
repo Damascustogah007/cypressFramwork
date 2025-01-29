@@ -1,8 +1,9 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
+  projectId: "z9ds8p",
   env: {
-    baseUrl: 'https://www.google.com',
+    baseUrl: 'http://localhost:3000/',
     viewportWidth : 1280,
     viewportHeight : 720, 
   },
