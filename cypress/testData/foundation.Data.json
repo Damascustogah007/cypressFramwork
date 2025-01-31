@@ -1,0 +1,16 @@
+{
+    "courses_test": "Courses",
+    "dropdown_menu_length": 3,
+    "course_menu_first" : "1. Testing Your First Next.js Application",
+    "course_menu_second" : "2. Testing Foundations",
+    "course_menu_third" : "3. Cypress Fundamentals",
+    "get_started_link" : "Get Started",
+    "testing_foundation" : "Testing Foundations",
+    "foundation_base_test" : "The fundamentals you need to write great tests.",
+    "what_will_you_learn" : "What You Will Learn",
+    "start_course" : "Start Course",
+    "place_holder" : "Enter your email",
+    "subscribe_button" : "Subscribe",
+    "hostname" : "localhost",
+    "links" : "link"
+}

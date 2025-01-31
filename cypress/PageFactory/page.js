@@ -39,7 +39,7 @@ export default class Page {
   }
 
   forceClickOnElement(element){
-   return  cy.get(element).click({ force: true })
+   return cy.get(element).click({ force: true })
   }
 
   /**
@@ -187,15 +187,15 @@ readFile(filePath){
    * 
    */
 
-  intercept(url, hostname, alias) {
+  intercept(method, url, alias) {
     return cy.intercept({
+         method: method,
          url: url,
-         hostname: hostname,
        }).as(alias)
  }
 
  waitForPageLoad(alias){
   return cy.wait(alias)   
-}
+ }
    
 }

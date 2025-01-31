@@ -1,8 +1,11 @@
-describe('test', () => {
-    before(() => {
-        cy.viewport(Cypress.env('viewportWidth'), Cypress.env('viewportHeight'));
-    });
-    it('Should visit google homepage homepage', () => {
-        cy.visit('https://www.google.com')
-    });
-});
+// describe('test', () => {
+//     before(() => {
+//         cy.viewport(Cypress.config('viewportWidth'), Cypress.config('viewportHeight'));
+//         // cy.visit(Cypress.env('baseUrl'));
+        
+//     });
+//     it('Should visit google homepage homepage', () => {
+//          cy.visit(Cypress.config('baseUrl'));
+        
+//     });
+// });
